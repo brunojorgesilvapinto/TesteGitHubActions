@@ -1,0 +1,30 @@
+name: Minha primeira CI
+
+on:
+  push:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build da API
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.14'
+
+      - name: Restaurar dependências
+        run: dotnet restore
+
+      - name: Compilar projeto
+        run: dotnet build --no-restore
+
+      
